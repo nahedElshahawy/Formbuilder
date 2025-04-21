@@ -1,0 +1,17 @@
+{
+  "/URLAPI": {
+      "target": "http://api-ocr.egcloud.gov.eg/",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+
+},
+
+"/OTPURL": {
+      "target": "https://ncwbackend.ncw.gov.eg/api/api/Auth/Register/",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+
+}
+}

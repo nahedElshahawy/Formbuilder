@@ -1,0 +1,362 @@
+<app-sidebar></app-sidebar>
+
+
+<div class="container mt-5 form-builder">
+  <!-- Available Fields Section -->
+  <div class="available-fields">
+    <h3>الحقول الاساسية</h3>
+    <div *ngFor="let field of basicFields" class="field-item" [draggable]="true"
+      (dragstart)="onDragStart($event, field)" (dragend)="onDragEnd($event)" (mouseenter)="onMouseEnter(field)"
+      (mouseleave)="onMouseLeave()">
+      <div class="icon-label-container">
+        <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+        <span class="field-name" *ngIf="hoveredField === field">{{ field.label }}</span>
+      </div>
+    </div>
+
+    <h3>الحقول الاضافية</h3>
+    <div *ngFor="let field of additionalFields" class="field-item" [draggable]="true"
+      (dragstart)="onDragStart($event, field)" (dragend)="onDragEnd($event)" (mouseenter)="onMouseEnter(field)"
+      (mouseleave)="onMouseLeave()">
+      <div class="icon-label-container">
+        <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+        <span class="field-name" *ngIf="hoveredField === field">{{ field.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Preview Section -->
+
+
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" id="registrationForm" class="preview-container"
+    (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+
+
+    <div>
+      <h3>Form Preview</h3>
+
+      <!-- Zoom Control Buttons -->
+      <div class="zoom-controls">
+        <button type="button" (click)="decreaseSize()"> − </button>
+        <button type="button" (click)="increaseSize()"> + </button>
+      </div>
+    </div>
+
+    <div class="form-fields">
+      <div *ngFor="let field of formFields; let i = index" class="form-field">
+
+
+        <div>
+          <mat-icon matIconSuffix (click)="editField(i)">edit</mat-icon>
+          <mat-icon matIconSuffix (click)="deleteField(i)">delete</mat-icon>
+        </div>
+
+        <!-- Dynamic Form Field Rendering -->
+
+        <!-- حقل الرقم القومى -->
+        <div *ngIf="field.type === 'int'" class="form-control">
+          <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+
+          <input id="nationalId" type="string" appearance="fill" class="full-width" formControlName="nationalId"
+            placeholder="{{ field.placeholder}}" />
+          <div *ngIf="form.get('nationalId')?.errors">
+            <div *ngIf="form.get('nationalId')?.errors?.['invalidId']">الرقم القومي غير صالح.</div>
+            <div *ngIf="form.get('nationalId')?.errors?.['invalidCentury']">كود القرن غير صالح.</div>
+            <div *ngIf="form.get('nationalId')?.errors?.['invalidBirthdate']">{{
+              form.get('nationalId')?.errors?.['invalidBirthdate'] }}</div>
+            <div *ngIf="form.get('nationalId')?.errors?.['invalidGovernorate']">{{
+              form.get('nationalId')?.errors?.['invalidGovernorate'] }}</div>
+          </div>
+        </div>
+
+        <!-- Number rading Input Field -->
+        <div *ngIf="field.type === 'number' " class="form-control">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+            <input matInput type="text" placeholder="{{field.placeholder}}" formControlName="{{ field.id }}"
+              [(ngModel)]="field.value" />
+          </mat-form-field>
+        </div>
+
+        <!-- Phone Input Field -->
+        <div *ngIf="field.type === 'string' " class="form-control">
+          <mat-form-field appearance="fill" class="full-width">
+
+            <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+            <input matInput type="tel" placeholder="{{ field.placeholder }}" formControlName="phone"
+              [(ngModel)]="field.value" />
+
+          </mat-form-field>
+        </div>
+
+        <!-- Email Input Field -->
+        <div *ngIf="field.type === 'email'" class="form-control">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+            <input matInput type="email" placeholder="{{ field.placeholder }}" formControlName="email"
+              [(ngModel)]="field.value" />
+          </mat-form-field>
+
+
+        </div>
+
+        <!-- Select Field (Governorate and City) -->
+        <div *ngIf="field.type === 'Governments'" class="  fill-width  form-control  w-100%" appearance="fill">
+          <div class="row w-100">
+            <!-- Governorate -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="governorate">المحافظة</label>
+
+                <select class="form-control" id="governorate" appearance="fill" class="full-width"
+                  formControlName="governorate" [(ngModel)]="selectedGovernmentId"
+                  (change)="onGovernorateChange($event)">
+
+                  <option value="" disabled selected>اختر المحافظة</option>
+                  <option *ngFor="let governorate of governments" [value]="governorate.id">
+                    {{ governorate.governorate_name_ar }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!-- City -->
+            <div class="col-md-12 ">
+              <div class="form-group">
+                <label for="city">المدينة</label>
+
+                <select class="form-control" id="city" appearance="fill" class="full-width" formControlName="city"
+                  [(ngModel)]="selectedCityId">
+                  <mat-icon matPrefix>location_city</mat-icon>
+
+                  <option value="" disabled selected>اختر المدينة</option>
+                  <option *ngFor="let city of cities" [value]="city.id">
+                    {{ city.city_name_ar }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Text Input Field -->
+        <div *ngIf="field.type === 'text'" class="form-control  full-width" appearance="fill">
+          <!-- <mat-form-field appearance="fill" class="full-width"> -->
+          <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+          <input matInput placeholder="{{ field.placeholder }}" appearance="fill" class="full-width"
+            [(ngModel)]="field.value" formControlName="{{ field.id }}" />
+          <!-- </mat-form-field> -->
+        </div>
+
+
+        <!-- Question Field -->
+<!-- Question Field with Label -->
+<div *ngIf="field.type === 'text' && field.label === 'Question'">
+  <div class="question-container">
+    <label *ngIf="field.questionLabel" class="question-label">{{field.questionLabel}}</label>
+    <mat-form-field appearance="fill" class="full-width">
+      <!-- <mat-icon matPrefix>{{ field.icon }}</mat-icon> -->
+      <input matInput 
+             placeholder="enter your answer here please  ..........."
+             formControlName="{{ field.id }}" 
+             [(ngModel)]="field.value" />
+    </mat-form-field>
+  </div>
+</div>
+
+        <!-- Date Field -->
+        <div *ngIf="field.type === 'Date'">
+          <mat-label>{{ field.placeholder }}</mat-label>
+          <input appearance="fill" class="full-width" matInput type="date" [matDatepicker]="picker"
+            formControlName="dateField">
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+
+        <!-- Time Field -->
+        <div *ngIf="field.type === 'time'">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>{{ field.placeholder }}</mat-label>
+            <input matInput type="time" formControlName="{{ field.id }}" [(ngModel)]="field.value" />
+          </mat-form-field>
+        </div>
+
+        <!-- Radio Buttons Field -->
+        <div *ngIf="field.type === 'radio'" appearance="fill" class="fill-width   form-control   radio-container">
+          <label>{{ field.label }}</label>
+          <mat-radio-group formControlName="{{ field.id }}" [(ngModel)]="field.value">
+            <mat-radio-button *ngFor="let option of field.options" [value]="option">
+              {{ option }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Checkbox Field -->
+        <div *ngIf="field.type === 'checkbox'">
+          <mat-checkbox formControlName="{{ field.id }}" [(ngModel)]="field.value">
+            {{ field.label }}
+          </mat-checkbox>
+        </div>
+
+        <!-- Header Field -->
+        <div *ngIf="field.type === 'head'" class="form-control  fill-width ">
+          <mat-icon matPrefix>{{ field.icon }}</mat-icon>
+
+          <input matInput type="head" placeholder="Enter Header">
+        </div>
+
+        <!-- Textarea Field -->
+        <div *ngIf="field.type === 'textarea'">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>{{ field.placeholder }}</mat-label>
+            <textarea matInput formControlName="{{ field.id }}" [(ngModel)]="field.value"></textarea>
+          </mat-form-field>
+        </div>
+
+       <!-- Rating Field -->
+<!-- Rating Field with Label and Description -->
+<div *ngIf="field.type === 'Rate'">
+  <div class="rating-container">
+    <label *ngIf="field.questionLabel" class="rating-label">{{field.questionLabel}}</label>
+
+    <div class="rating-stars">
+      <mat-icon *ngFor="let star of stars; let i = index" 
+                (click)="setRating(i + 1)"
+                [ngClass]="{ 'active-star': i + 1 <= getRatingValue(field) }">
+        {{ i + 1 <= getRatingValue(field) ? 'star' : 'star_border' }}
+      </mat-icon>
+    </div>
+    <!-- <div *ngIf="field.placeholder" class="rating-hint">{{field.placeholder}}</div> -->
+    <input type="hidden" [value]="field.value" formControlName="{{field.id}}">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ field.placeholder }}</mat-label>
+      <textarea matInput formControlName="{{ field.id }}" [(ngModel)]="field.value"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+
+ <!-- ID Front Upload -->
+        <div *ngIf="field.type === 'image' ">
+
+        <div class="file-upload-container">
+          <label class="file-upload-label">صورة الهوية الأمامية</label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="idFrontInput" (change)="onIdFrontChange($event)" accept="image/*" hidden>
+            <label for="idFrontInput" class="file-upload-button">
+              <mat-icon>photo_camera</mat-icon>
+              <span>اختر صورة</span>
+            </label>
+
+            <!-- <div class="file-preview" *ngIf="idFrontUrl">
+              <img [src]="idFrontUrl" alt="صورة الهوية الأمامية">
+              <button mat-icon-button class="remove-button" (click)="removeIdFront()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div> -->
+
+            <div class="file-info" *ngIf="idFrontFile">
+              <span>{{ idFrontFile.name }}</span>
+              <span>{{ idFrontFile.size / 1024 | number:'1.0-0' }} KB</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ID Back Upload -->
+        <div class="file-upload-container">
+          <label class="file-upload-label">صورة الهوية الخلفية</label>
+          <div class="file-upload-wrapper">
+            <input type="file" id="idBackInput" (change)="onIdBackChange($event)" accept="image/*" hidden>
+            <label for="idBackInput" class="file-upload-button">
+              <mat-icon>photo_camera</mat-icon>
+              <span>اختر صورة</span>
+            </label>
+
+            <div class="file-preview" *ngIf="idBackUrl">
+              <img [src]="idBackUrl" alt="صورة الهوية الخلفية">
+              <button mat-icon-button class="remove-button" (click)="removeIdBack()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+
+            <div class="file-info" *ngIf="idBackFile">
+              <span>{{ idBackFile.name }}</span>
+              <span>{{ idBackFile.size / 1024 | number:'1.0-0' }} KB</span>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+
+
+
+        <!-- File Upload Field -->
+<div *ngIf="field.type === 'file'">
+  <div class="file-upload-container">
+    <label class="file-upload-label">{{field.placeholder}}</label>
+    <div class="file-upload-wrapper">
+      <input type="file" id="documentUpload" 
+             (change)="onFileSelected($event)" 
+             [accept]="field.accept" hidden>
+      <label for="documentUpload" class="file-upload-button">
+        <mat-icon>{{field.icon}}</mat-icon>
+        <span>Choose File</span>
+      </label>
+
+      <div *ngIf="uploadedFileUrl" class="file-info">
+        <span>{{uploadedFileName}}</span>
+        <span>{{uploadedFileSize}}</span>
+        <button mat-icon-button (click)="removeUploadedFile()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Marital Status Field -->
+<!-- <div *ngIf="field.type === 'radio' && field.label === 'Marital Status'">
+  <label>{{field.label}}</label>
+  <mat-radio-group [(ngModel)]="selectedMaritalStatus">
+    <mat-radio-button *ngFor="let status of maritalStatusOptions" 
+                     [value]="status">
+      {{status}}
+    </mat-radio-button>
+  </mat-radio-group>
+</div> -->
+
+
+      </div>
+
+      <!-- download ,my-pages-->
+
+
+
+
+      <!-- <img *ngIf="qrCodeImage" [src]="qrCodeImage" alt="OTP QR Code">  -->
+
+
+
+      <button mat-raised-button type="submit" (click)="exportForm()" class="submit-button">
+        Submit
+      </button>
+
+    </div>
+
+    <!-- قسم عرض QR إن توفّر -->
+    <div *ngIf="qrCodeImage" class="qr-section">
+      <h4>Scan this QR:</h4>
+      <img [src]="qrCodeImage" [width]="getQRCodeSize()" alt="Form QR" />
+    </div>
+
+  </form>
+
+
+
+
+  <!-- <img *ngIf="qrCodeImage" [src]="qrCodeImage" alt="OTP QR Code"> -->
+
+
+</div>

@@ -1,0 +1,34 @@
+<!-- Feather Button -->
+<button class="sidebar-opener" (click)="toggleSidebar()">
+  <i class="fas fa-feather"></i>
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow">
+  <div class="sidebar-content">
+    <h6>إضافة الأدوات</h6>
+    <ul>
+      <li class="sidebar-item" routerLink="/basics" routerLinkActive="active" title="الاساسيات">
+        <i class="fas fa-home"></i>
+      </li>
+      <li class="sidebar-item" routerLink="/new-pages" routerLinkActive="active" title="صفحات جديدة">
+        <i class="fas fa-file-alt"></i>
+      </li>
+      <li class="sidebar-item" routerLink="/my-pages" routerLinkActive="active" title="صفحاتي">
+        <i class="fas fa-user"></i>
+      </li>
+      <li class="sidebar-item" routerLink="/page-data" routerLinkActive="active" title="بيانات صفحات">
+        <i class="fas fa-database"></i>
+      </li>
+      <li class="sidebar-item" routerLink="/public-page-data" routerLinkActive="active" title="بيانات الصفحات العامة">
+        <i class="fas fa-globe"></i>
+      </li>
+      <li class="sidebar-item" routerLink="/create-activity" routerLinkActive="active" title="انشاء نشاط">
+        <i class="fas fa-pencil-alt"></i>
+      </li>
+      <li class="sidebar-item" routerLink="/all-activities" routerLinkActive="active" title="جميع الانشطة">
+        <i class="fas fa-tasks"></i>
+      </li>
+    </ul>
+  </div>
+</div>

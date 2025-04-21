@@ -1,0 +1,32 @@
+
+
+
+<div class="buttons">
+ <button (click)="generateOTPQRCode()">جرّب توليد TOTP/QR</button>
+ <button (click)="verifyModal()">تحقق من الرمز</button>
+</div>
+
+<!-- مكان عرض صورة الـQR -->
+<div class="qr-section" *ngIf="qrCodeImage">
+ <h3>رمز QR المُولّد</h3>
+ <img
+   [src]="qrCodeImage"
+   [width]="getQRCodeSize()"
+   alt="QR Code"
+ />
+ <div class="qr-details">
+   <p><strong>Secret (Base32):</strong> {{ otpSecret }}</p>
+   <p><strong>OTP Auth URI:</strong> {{ otpUrl }}</p>
+ </div>
+</div>
+
+
+<div> 
+ 
+ <button (click)="generateOTP()">Generate TOTP + QR</button>
+ <img *ngIf="qrCodeImage" [src]="qrCodeImage" alt="TOTP QR" style="display:block; margin-top:10px;" />
+
+ <button (click)="verifyOtpPrompt()" style="margin-top:10px;">Verify OTP</button>
+ 
+ </div> 
+

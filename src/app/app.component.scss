@@ -1,0 +1,46 @@
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+
+
+.theme-toggle-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color:azure;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.theme-toggle-button mat-icon {
+  font-size: 20px;
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+
+
+.container {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+  @media (min-width: 992px) {
+    body {
+      padding-top: 57px; // تأكد من أن هذا الرقم يعكس ارتفاع النافبار لديك
+    }
+  }
+
+  body {
+    direction: rtl; /* default */
+  }
+
+  /* Adjust for RTL */
+

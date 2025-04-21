@@ -1,0 +1,106 @@
+<!-- users.component.html -->
+<app-settings></app-settings>
+
+<div class="container" dir="rtl">
+  <!-- بطاقة شاشة المستخدمين -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+
+        <div *ngIf="qrCodeData" class="text-center mt-4">
+    <qrcode [qrdata]="qrCodeData" size="256" level="'M'"></qrcode>
+  </div>
+        <h1>شاشة المستخدمين</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج الإدخال -->
+        <h4>{{ isEditing ? 'تعديل مستخدم' : 'إضافة مستخدم' }}</h4>
+        <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-control border-0">
+          <div class="mb-3">
+            <label for="username" class="form-label">اسم المستخدم</label>
+            <input type="text" id="username" class="form-control" required [(ngModel)]="user.username"
+              name="username" />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">البريد الإلكتروني</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              required
+              [(ngModel)]="user.email"
+              name="email"
+              #email="ngModel"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            />
+            <div *ngIf="email.invalid && email.touched" class="text-danger">
+              الرجاء إدخال بريد إلكتروني صالح.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="nickname" class="form-label">اختصار اسم المستخدم</label>
+            <input type="text" id="nickname" class="form-control" required [(ngModel)]="user.nickname"
+              name="nickname" />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">كلمة المرور</label>
+            <input type="password" id="password" class="form-control" required [(ngModel)]="user.password"
+              name="password" />
+          </div>
+
+          <!-- زر الحفظ -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary w-25" [disabled]="!userForm.form.valid">
+              {{ isEditing ? 'تحديث' : 'حفظ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="users.length > 0" class="card-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>قائمة المستخدمين</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>اسم المستخدم</th>
+              <th>البريد الإلكتروني</th>
+              <th>اختصار اسم المستخدم</th>
+              <th>كلمة المرور</th>
+              <th colspan="2">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of users; let i = index">
+              <td>{{ u.username }}</td>
+              <td>{{ u.email }}</td>
+              <td>{{ u.nickname }}</td>
+              <td>******</td> <!-- إخفاء كلمة المرور لأغراض الأمان -->
+              <td class="text-center">
+                <button class="btn btn-warning btn-sm" (click)="editUser(i)">
+                  <i class="fa fa-pencil"></i> تعديل
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteUser(i)">
+                  <i class="fa fa-trash"></i> حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code Display -->
+
+</div>

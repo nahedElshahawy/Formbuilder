@@ -1,0 +1,72 @@
+<div class="login-container">
+
+<div class="container" >
+
+  <!-- <div class="form-container sign-in"> -->
+  <img src="../../assets/Dynamics-365-logo-copy.png" alt="Logo" class="logo">
+  <h2>تسجيل الدخول</h2>
+
+  <form  [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
+
+    <!-- حقل اسم المستخدم -->
+    <div class="form-group"   >
+      <input type="hidden" name="csrfmiddlewaretoken" value="c5n1Jflb4cj4VDBYbQKDREKMkYm4oR2axy8DEHAZtZruSakaHIMXvZ7J90lAQWrj">
+
+      <label for="username">اسم المستخدم</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': f['username'].touched && f['username'].invalid }"
+      />
+      <div *ngIf="f['username'].touched && f['username'].invalid" class="invalid-feedback">
+        اسم المستخدم مطلوب
+      </div>
+    </div>
+
+    <!-- حقل كلمة المرور -->
+    <div class="form-group"  >
+      <label for="password">كلمة المرور</label>
+
+      <div>
+        <input
+        id="password"
+        [type]="showPassword ? 'text' : 'password'"
+        formControlName="password"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].invalid }"
+
+        />
+        <i
+        class="fa"
+        [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+        style="position: relative; right: 90%;  transform: translateY(-240%); cursor: pointer;"
+        (click)="toggleShowPassword()"
+        aria-hidden="true"
+        ></i>
+
+
+      </div>
+
+
+<div *ngIf="f['password'].touched && f['password'].invalid" class="invalid-feedback">
+        كلمة المرور مطلوبة
+      </div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger mt-3">
+      {{ error }}
+    </div>
+
+    <!-- زر الدخول -->
+    <button type="submit" class="btn btn-primary" [disabled]="loading"  (click)="onSubmit()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      دخول
+    </button>
+  </form>
+
+
+</div>
+</div>
+

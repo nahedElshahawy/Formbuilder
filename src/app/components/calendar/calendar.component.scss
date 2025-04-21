@@ -1,0 +1,132 @@
+/* أنماط عامة */
+.demo-app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px; /* تكبير حجم الخط */
+}
+
+.demo-app-main {
+  width: 100%;
+  max-width: 1600px; /* زيادة الحد الأقصى للعرض */
+  padding: 2.5em;
+  margin: 0 auto;
+}
+
+.fc {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  font-size: 1.2rem; /* تكبير حجم النص داخل التقويم */
+}
+
+/* تخصيص نمط الأحداث */
+.fc .fc-event {
+  overflow: hidden;
+  font-size: 14px; /* تكبير النص داخل الأحداث */
+}
+
+.fc .fc-event .event-content {
+  display: flex;
+  flex-direction: row; /* ترتيب العناصر أفقيًا */
+  align-items: center;
+}
+
+/* أنماط لمربع اللون */
+.fc .fc-event .color-box {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+/* أنماط لصور الأحداث */
+.fc .fc-event .event-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px; /* عرض الحاوية */
+  height: 30px; /* ارتفاع الحاوية */
+  overflow: hidden;
+  margin-right: 5px; /* مسافة بين الصورة والعناصر الأخرى */
+}
+
+.fc .fc-event .event-image {
+  width: 100%; /* ملء الحاوية */
+  height: 100%; /* ملء الحاوية */
+  object-fit: cover; /* لضمان احتواء الصورة داخل الحاوية */
+}
+
+.fc .fc-event .event-title {
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ضبط حجم خلايا التقويم */
+.fc-daygrid-day-frame {
+  min-height: 120px; /* زيادة ارتفاع الخلايا */
+  max-height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* لضمان أن الصفوف في التقويم لها نفس الارتفاع */
+.fc .fc-daygrid-day-top {
+  height: 24px;
+}
+
+.fc .fc-daygrid-day-events {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .demo-app-main {
+    padding: 2em;
+  }
+
+  .fc-daygrid-day-frame {
+    min-height: 100px;
+    max-height: 100px;
+  }
+
+  .fc .fc-event .event-image-container {
+    width: 25px;
+    height: 25px;
+  }
+
+  .fc .fc-event .event-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .demo-app-main {
+    padding: 1.5em;
+  }
+
+  .fc-daygrid-day-frame {
+    min-height: 80px;
+    max-height: 80px;
+  }
+
+  .fc .fc-event .event-image-container {
+    width: 20px;
+    height: 20px;
+  }
+
+  .fc .fc-event .event-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .fc .fc-event .event-title {
+    font-size: 12px;
+  }
+}

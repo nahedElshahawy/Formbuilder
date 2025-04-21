@@ -1,0 +1,109 @@
+<div class="container   content">
+  <form [formGroup]="form">
+    <div class="select-container">
+      <div>
+        <label for="activity">اسم النشاط:</label>
+        <select
+          id="activity"
+          formControlName="activity"
+          (change)="onActivityChange()"
+        >
+          <option value="">اختر اسم النشاط</option>
+          <option value="نشاط 1">نشاط 1</option>
+          <option value="نشاط 2">نشاط 2</option>
+        </select>
+      </div>
+
+      <div *ngIf="users.length > 0">
+        <label for="user">اسم المستخدم:</label>
+        <select
+          id="user"
+          formControlName="user"
+          (change)="onUserChange()"
+          [disabled]="!form.get('activity')?.value"
+        >
+          <option value="">اختر اسم المستخدم</option>
+          <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="forms.length > 0">
+        <label for="form">اسم الفورم:</label>
+        <select
+          id="form"
+          formControlName="form"
+          (change)="onFormChange()"
+          [disabled]="!form.get('user')?.value"
+        >
+          <option value="">اختر اسم الفورم</option>
+          <option *ngFor="let form of forms" [value]="form">{{ form }}</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" (click)="onSubmit()">تقديم</button>
+  </form>
+
+  <div *ngIf="formSubmitted">
+    <h3>تم تقديم الفورم: {{ selectedForm }}</h3>
+
+    <!-- Search and Rows Per Page Controls -->
+    <div class="form-controls">
+      <div>
+        <label for="search">بحث:</label>
+        <input
+          id="search"
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          placeholder="ابحث عن البيانات"
+        />
+      </div>
+
+      <div>
+        <label for="rowsPerPage">عدد الأسطر في الصفحة:</label>
+        <select
+          id="rowsPerPage"
+          [(ngModel)]="rowsPerPage"
+          (change)="onPageChange()"
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>الاسم</th>
+          <th>الرقم القومي</th>
+          <th>تاريخ الميلاد</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Display data with numbering -->
+        <tr *ngFor="let person of paginatedData; let i = index">
+          <td>{{ currentPageIndex + i + 1 }}</td>
+          <td>{{ person.name }}</td>
+          <td>{{ person.nationalId }}</td>
+          <td>{{ person.birthDate | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">
+        &#8249;
+      </button>
+      <span>الصفحة {{ currentPage }} من {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        &#8250;
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{
+    "TITLE": "Create Data Page",
+    "FULL_NAME": "Full Name",
+    "ENTER_FULL_NAME": "Enter your full name",
+    "NATIONAL_ID": "National ID",
+    "ENTER_NATIONAL_ID": "Enter your national ID",
+    "EMAIL": "Email",
+    "ENTER_EMAIL": "Enter your email",
+    "PHONE": "Phone",
+    "ENTER_PHONE": "Enter your phone number",
+    "DATE": "Date",
+    "CHOOSE_DATE": "Choose a date",
+    "GENDER": "Gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "RELIGION": "Religion",
+    "MUSLIM": "Muslim",
+    "CHRISTIAN": "Christian",
+    "GOVERNMENTS": "Governments",
+    "SELECT_GOVERNMENT": "Select Government",
+    "SUBMIT": "Submit",
+    "FORM_INVALID": "Form is invalid",
+    "FORM_SUBMITTED": "Form submitted successfully",
+    "INVALID_NATIONAL_ID": "الرقم القومي يجب أن يكون مكونًا من 14 رقمًا ويبدأ بـ 2 أو 3",
+    "INVALID_NATIONAL_ID": "National ID must be 14 digits and start with 2 or 3"
+
+  }

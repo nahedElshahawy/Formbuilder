@@ -1,0 +1,238 @@
+
+<button mat-raised-button (click)="goBack()">عودة</button>
+
+
+
+
+
+
+
+
+  
+
+<div class="preview-container container"  >
+  <h3>معاينة النموذج</h3>
+
+
+  <!-- عرض الحقول المختارة فقط -->
+  <div *ngFor="let field of basicFields" >
+    <!-- حقل النص --> <!-- حقل النص -->
+      <div *ngIf="field.type === 'text'">
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" [name]="field.label" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل البطاقة -->
+      <div *ngIf="field.type === 'number'">
+        <mat-form-field>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" [name]="field.label" />
+        </mat-form-field>
+      </div>
+
+  
+  
+      <!-- حقل التليفون -->
+      <div *ngIf="field.type === 'string' && field.label === 'Phone'">
+        <mat-form-field>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput  placeholder="{{field.placeholder}}" [(ngModel)]="field.value" name="phone" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل البريد الإلكتروني -->
+      <div *ngIf="field.type === 'email'">
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" name="email" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل المحافظة -->
+      <div *ngIf="field.type === 'select'">
+        <mat-form-field>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <mat-select [(ngModel)]="selectedGovernmentId" (selectionChange)="onGovernorateChange($event.value)">
+            <mat-option *ngFor="let government of governments" [value]="government.id">
+              {{ government.governorate_name_ar }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- حقل المدينة -->
+        <mat-form-field *ngIf="selectedGovernmentId">
+          <mat-icon matPrefix>location_city</mat-icon>
+          <mat-select [(ngModel)]="selectedCityId">
+            <mat-option *ngFor="let city of cities" [value]="city.id">
+              {{ city.city_name_ar }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل التاريخ -->
+      <div *ngIf="field.type === 'Date'">
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput [placeholder]="field.placeholder" [value]="field.value" type="date" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل الوقت -->
+      <div *ngIf="field.type === 'time'">
+        <input matInput [(ngModel)]="field.value"  placeholder="{{field.placeholder}}" type="time" />
+      </div>
+  
+      <!-- حقل راديو -->
+      <div *ngIf="field.type === 'radio'">
+        <mat-radio-group [(ngModel)]="field.value">
+          <mat-radio-button *ngFor="let option of field.options" [value]="option">{{ option }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+  
+      <!-- حقل صندوق الاختيار -->
+      <div *ngIf="field.type === 'checkbox'">
+        <mat-checkbox [(ngModel)]="field.value" name="checkbox">{{ field.label }}</mat-checkbox>
+      </div>
+  
+      <!-- حقل رفع الملفات -->
+      <div *ngIf="field.type === 'file'">
+        <input type="file"  [accept]="field.accept" />
+      </div>
+  
+      <!-- Header Field -->
+      <div *ngIf="field.type === 'headers'">
+        <mat-toolbar>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" />
+        </mat-toolbar>
+      </div>
+  
+      <!-- Paragraph Field -->
+      <div *ngIf="field.type === 'textarea'">
+        <textarea matInput [(ngModel)]="field.value" placeholder="{{field.placeholder}}"></textarea>
+      </div>
+  
+      <!-- Rating Field -->
+      <div *ngIf="field.type === 'number' && field.label === 'Rating'">
+        <div class="rating-stars">
+          <mat-icon *ngFor="let star of stars; let i = index" (click)="setRating(i + 1)" [ngClass]="{'active': i + 1 <= getRatingValue(field)}">
+            star
+          </mat-icon>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- عرض الحقول المختارة فقط -->
+  <div *ngFor="let field of additionalFields" >
+    <!-- حقل النص --> <!-- حقل النص -->
+      <div *ngIf="field.type === 'text'">
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" [name]="field.label" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل البطاقة -->
+      <div *ngIf="field.type === 'number'">
+        <mat-form-field>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" [name]="field.label" />
+        </mat-form-field>
+      </div>
+
+  
+  
+      <!-- حقل التليفون -->
+      <div *ngIf="field.type === 'string' && field.label === 'Phone'">
+        <mat-form-field>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput  placeholder="{{field.placeholder}}" [(ngModel)]="field.value" name="phone" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل البريد الإلكتروني -->
+      <div *ngIf="field.type === 'email'">
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" name="email" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل المحافظة -->
+      <div *ngIf="field.type === 'select'">
+        <mat-form-field>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <mat-select [(ngModel)]="selectedGovernmentId" (selectionChange)="onGovernorateChange($event.value)">
+            <mat-option *ngFor="let government of governments" [value]="government.id">
+              {{ government.governorate_name_ar }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- حقل المدينة -->
+        <mat-form-field *ngIf="selectedGovernmentId">
+          <mat-icon matPrefix>location_city</mat-icon>
+          <mat-select [(ngModel)]="selectedCityId">
+            <mat-option *ngFor="let city of cities" [value]="city.id">
+              {{ city.city_name_ar }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل التاريخ -->
+      <div *ngIf="field.type === 'Date'">
+        <mat-form-field appearance="fill">
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput [placeholder]="field.placeholder" [value]="field.value" type="date" />
+        </mat-form-field>
+      </div>
+  
+      <!-- حقل الوقت -->
+      <div *ngIf="field.type === 'time'">
+        <input matInput [(ngModel)]="field.value"  placeholder="{{field.placeholder}}" type="time" />
+      </div>
+  
+      <!-- حقل راديو -->
+      <div *ngIf="field.type === 'radio'">
+        <mat-radio-group [(ngModel)]="field.value">
+          <mat-radio-button *ngFor="let option of field.options" [value]="option">{{ option }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+  
+      <!-- حقل صندوق الاختيار -->
+      <div *ngIf="field.type === 'checkbox'">
+        <mat-checkbox [(ngModel)]="field.value" name="checkbox">{{ field.label }}</mat-checkbox>
+      </div>
+  
+      <!-- حقل رفع الملفات -->
+      <div *ngIf="field.type === 'file'">
+        <input type="file"  [accept]="field.accept" />
+      </div>
+  
+      <!-- Header Field -->
+      <div *ngIf="field.type === 'headers'">
+        <mat-toolbar>
+          <mat-icon matPrefix>{{field.icon}}</mat-icon>
+          <input matInput placeholder="{{field.placeholder}}" [(ngModel)]="field.value" />
+        </mat-toolbar>
+      </div>
+  
+      <!-- Paragraph Field -->
+      <div *ngIf="field.type === 'textarea'">
+        <textarea matInput [(ngModel)]="field.value" placeholder="{{field.placeholder}}"></textarea>
+      </div>
+  
+      <!-- Rating Field -->
+      <div *ngIf="field.type === 'number' && field.label === 'Rating'">
+        <div class="rating-stars">
+          <mat-icon *ngFor="let star of stars; let i = index" (click)="setRating(i + 1)" [ngClass]="{'active': i + 1 <= getRatingValue(field)}">
+            star
+          </mat-icon>
+        </div>
+      </div>
+    </div>

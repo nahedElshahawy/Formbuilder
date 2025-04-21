@@ -1,0 +1,61 @@
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: right;
+  font-family: 'Arial', sans-serif;
+  direction: rtl;
+}
+
+.card-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn {
+  border-radius: 4px;
+}
+
+.btn + .btn {
+  margin-left: 5px;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+@media (max-width: 767px) {
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn + .btn {
+    margin-left: 0;
+  }
+}

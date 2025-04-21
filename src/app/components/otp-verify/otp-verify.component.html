@@ -1,0 +1,105 @@
+<!-- otp-verify.component.html -->
+<div class="card-body p-5 text-center">
+  <p>Enter your security code</p>
+
+  <div class="otp-field mb-4">
+    <input
+      type="text"
+      maxlength="1"
+      pattern="[0-9]"
+      inputmode="numeric"
+      #digit1
+      [(ngModel)]="otpDigits.d1"
+      name="d1"
+      class="otp-input"
+      (keyup)="autoFocusNext($event, digit2)"
+      (keydown)="handleBackspace($event, null, digit1)"
+    />
+
+    <input
+      type="text"
+      maxlength="1"
+      pattern="[0-9]"
+      inputmode="numeric"
+      #digit2
+      [(ngModel)]="otpDigits.d2"
+      name="d2"
+      class="otp-input"
+      (keyup)="autoFocusNext($event, digit3)"
+      (keydown)="handleBackspace($event, digit1, digit2)"
+    />
+
+    <!-- Repeat for digits 3-6 with similar pattern -->
+    <input
+      type="text"
+      maxlength="1"
+      pattern="[0-9]"
+      inputmode="numeric"
+      #digit3
+      [(ngModel)]="otpDigits.d3"
+      name="d3"
+      class="otp-input"
+      (keyup)="autoFocusNext($event, digit4)"
+      (keydown)="handleBackspace($event, digit2, digit3)"
+    />
+
+    <input
+      type="text"
+      maxlength="1"
+      pattern="[0-9]"
+      inputmode="numeric"
+      #digit4
+      [(ngModel)]="otpDigits.d4"
+      name="d4"
+      class="otp-input"
+      (keyup)="autoFocusNext($event, digit5)"
+      (keydown)="handleBackspace($event, digit3, digit4)"
+    />
+
+    <input
+      type="text"
+      maxlength="1"
+      pattern="[0-9]"
+      inputmode="numeric"
+      #digit5
+      [(ngModel)]="otpDigits.d5"
+      name="d5"
+      class="otp-input"
+      (keyup)="autoFocusNext($event, digit6)"
+      (keydown)="handleBackspace($event, digit4, digit5)"
+    />
+
+    <input
+      type="text"
+      maxlength="1"
+      pattern="[0-9]"
+      inputmode="numeric"
+      #digit6
+      [(ngModel)]="otpDigits.d6"
+      name="d6"
+      class="otp-input"
+      (keyup.enter)="verifyCode()"
+      (keydown)="handleBackspace($event, digit5, digit6)"
+    />
+  </div>
+
+
+  {{ obfuscateCode(otpCode) }}
+
+
+  <button class="btn btn-primary verify-btn" (click)="verifyCode()"  (click)="cleardigit()">
+    Verify
+  </button>
+
+  {{ obfuscateCode(otpCode) }}
+
+
+
+  <p class="resend text-muted mb-0">
+    Didn't receive code? <a href="#" (click)="requestCode()">Request again</a>
+  </p>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -1,0 +1,55 @@
+
+.container {
+ max-width: 800px;
+ margin: 20px auto;
+ margin-top: 30px;
+ text-align: right;
+ font-family: 'Arial', sans-serif;
+ direction: rtl;
+}
+
+
+
+table {
+ width: 100%;
+ border-collapse: collapse;
+ margin-top: 1rem;
+ }
+ th,
+ td {
+ border: 1px solid #ddd;
+ padding: 8px;
+ text-align: left;
+ }
+ thead {
+ background-color: #f2f2f2;
+ }
+ 
+ 
+ 
+   /* الاستجابة على الشاشات الصغيرة */
+   @media (max-width: 600px) {
+     table, thead, tbody, th, td, tr {
+       display: block;
+       width: 100%;
+     }
+     thead {
+       display: none;
+     }
+     tr {
+       margin-bottom: 15px;
+       border: 1px solid #ddd;
+     }
+     td {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 8px;
+       border: none;
+       border-bottom: 1px solid #ddd;
+     }
+     td::before {
+       content: attr(data-label);
+       font-weight: bold;
+     }
+    }

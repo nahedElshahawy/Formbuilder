@@ -1,0 +1,25 @@
+
+<app-settings></app-settings>
+
+
+<div class="container">
+<h3>{{ title }}</h3>
+<table>
+ <thead>
+  <tr>
+   <th>اسم النشاط</th>
+   <th>تاريخ بدء النشاط</th>
+   <th>تاريخ انتهاء النشاط</th>
+   <th>تفعيل</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr *ngFor="let event of events">
+   <td>{{ event.name }}</td>
+   <td>{{ event.startDate | date:'yyyy-MM-dd' }}</td>
+   <td>{{ event.endDate | date:'yyyy-MM-dd' }}</td>
+   <td> <input type="checkbox" [(ngModel)]="event.active" /> </td>
+  </tr>
+ </tbody>
+</table> 
+</div>

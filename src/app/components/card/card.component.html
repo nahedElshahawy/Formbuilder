@@ -1,0 +1,198 @@
+<div class="container" dir="rtl">
+  <!-- قسم تحميل الصور -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <h1>تحميل صور البطاقة</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج تحميل الصور -->
+        <div class="row">
+          <!-- تحميل صورة الوجه -->
+          <div class="col-md-6">
+            <div class="upload-section mb-3">
+              <label for="frontImage" class="form-label">صورة الوجه:</label>
+              <div class="custom-file-upload">
+                <input type="file" id="frontImage" (change)="onFileSelected($event, 'front')" class="form-control"
+                  accept="image/jpeg,image/png,image/jpg" />
+                <small class="text-muted d-block mt-1">
+                  الحد الأقصى للحجم: 2 ميجابايت | الصيغ المدعومة: JPG, PNG
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- تحميل صورة الظهر -->
+          <div class="col-md-6">
+            <div class="upload-section mb-3">
+              <label for="backImage" class="form-label">صورة الظهر:</label>
+              <div class="custom-file-upload">
+                <input type="file" id="backImage" (change)="onFileSelected($event, 'back')" class="form-control"
+                  accept="image/jpeg,image/png,image/jpg" />
+                <small class="text-muted d-block mt-1">
+                  الحد الأقصى للحجم: 2 ميجابايت | الصيغ المدعومة: JPG, PNG
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- معاينة الصور -->
+        <div class="preview-section mt-4" *ngIf="frontImage || backImage">
+          <h4 class="text-center mb-3">معاينة الصور</h4>
+          <div class="row">
+            <!-- معاينة صورة الوجه -->
+            <div class="col-md-6" *ngIf="frontImage">
+              <div class="preview-card">
+                <h5>صورة الوجه</h5>
+                <div class="image-container">
+                  <img [src]="frontImage" alt="صورة وجه البطاقة" class="preview-image" />
+                </div>
+                <div class="file-info mt-2">
+                  <small class="text-muted">{{frontName}}</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- معاينة صورة الظهر -->
+            <div class="col-md-6" *ngIf="backImage">
+              <div class="preview-card">
+                <h5>صورة الظهر</h5>
+                <div class="image-container">
+                  <img [src]="backImage" alt="صورة ظهر البطاقة" class="preview-image" />
+                </div>
+                <div class="file-info mt-2">
+                  <small class="text-muted">{{backName}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- حالة معالجة OCR -->
+        <div class="ocr-status mt-4" *ngIf="ocrProgress > 0">
+          <h4 class="text-center mb-3">حالة استخراج البيانات</h4>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [style.width.%]="ocrProgress" [attr.aria-valuenow]="ocrProgress" aria-valuemin="0" aria-valuemax="100">
+              {{ocrProgress}}%
+            </div>
+          </div>
+          <p class="text-center mt-2">{{ocrStatus}}</p>
+        </div>
+
+        <!-- النتائج المستخرجة -->
+        <div class="extracted-data mt-4" *ngIf="extractedData">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="text-center mb-0">البيانات المستخرجة</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <!-- البيانات الأساسية -->
+                <div class="col-md-6">
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">الاسم:</label>
+                    <p class="mb-1">{{extractedData.fullName || 'غير متوفر'}}</p>
+                  </div>
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">الرقم القومي:</label>
+                    <p class="mb-1">{{extractedData.nationalId || 'غير متوفر'}}</p>
+                  </div>
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">تاريخ الميلاد:</label>
+                    <p class="mb-1">{{extractedData.dateOfBirth || 'غير متوفر'}}</p>
+                  </div>
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">النوع:</label>
+                    <p class="mb-1">{{extractedData.gender || 'غير متوفر'}}</p>
+                  </div>
+                </div>
+
+                <!-- البيانات الإضافية -->
+                <div class="col-md-6">
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">العنوان:</label>
+                    <p class="mb-1">{{extractedData.address || 'غير متوفر'}}</p>
+                  </div>
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">المهنة:</label>
+                    <p class="mb-1">{{extractedData.profession || 'غير متوفر'}}</p>
+                  </div>
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">الحالة الاجتماعية:</label>
+                    <p class="mb-1">{{extractedData.maritalStatus || 'غير متوفر'}}</p>
+                  </div>
+                  <div class="data-group mb-3">
+                    <label class="fw-bold">الديانة:</label>
+                    <p class="mb-1">{{extractedData.religion || 'غير متوفر'}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- أزرار التحكم -->
+        <div class="actions mt-4 text-center">
+          <button class="btn btn-primary me-2" (click)="saveData()" [disabled]="!frontImage && !backImage">
+            <i class="fas fa-save"></i>
+            حفظ البيانات
+          </button>
+          <button class="btn btn-secondary" (click)="resetForm()" [disabled]="!frontImage && !backImage">
+            <i class="fas fa-redo"></i>
+            إعادة تعيين
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- جدول البيانات المحفوظة -->
+  <div class="saved-data mt-4" *ngIf="cards && cards.length > 0">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="text-center mb-0">البيانات المحفوظة</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>الاسم</th>
+                <th>الرقم القومي</th>
+                <th>تاريخ الميلاد</th>
+                <th>العنوان</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- تحديث جزء عرض البيانات في الجدول -->
+              <tr *ngFor="let card of cards; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{card.extractedData.fullName || 'غير متوفر'}}</td>
+                <td>{{card.extractedData.nationalId || 'غير متوفر'}}</td>
+                <td>{{card.extractedData.dateOfBirth || 'غير متوفر'}}</td>
+                <td>{{card.extractedData.address || 'غير متوفر'}}</td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-info me-1" (click)="viewDetails(i)" title="عرض التفاصيل">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-warning me-1" (click)="editCard(i)" title="تعديل">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteCard(i)" title="حذف">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

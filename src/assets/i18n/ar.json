@@ -1,0 +1,27 @@
+{
+    "TITLE": "إنشاء صفحة البيانات",
+    "FULL_NAME": "الاسم بالكامل",
+    "ENTER_FULL_NAME": "ادخل اسمك بالكامل",
+    "NATIONAL_ID": "الرقم القومي",
+    "ENTER_NATIONAL_ID": "ادخل الرقم القومي",
+    "EMAIL": "البريد الإلكتروني",
+    "ENTER_EMAIL": "ادخل بريدك الإلكتروني",
+    "PHONE": "رقم الموبايل",
+    "ENTER_PHONE": "ادخل رقم الموبايل",
+    "DATE": "التاريخ",
+    "CHOOSE_DATE": "اختر التاريخ",
+    "GENDER": "النوع",
+    "MALE": "ذكر",
+    "FEMALE": "أنثى",
+    "RELIGION": "الديانة",
+    "MUSLIM": "مسلم",
+    "CHRISTIAN": "مسيحي",
+    "GOVERNMENTS": "المحافظات",
+    "SELECT_GOVERNMENT": "اختر المحافظة",
+    "SUBMIT": "إرسال",
+    "FORM_INVALID": "النموذج غير صالح",
+    "FORM_SUBMITTED": "تم إرسال النموذج بنجاح",
+    "INVALID_NATIONAL_ID": "الرقم القومي يجب أن يكون مكونًا من 14 رقمًا ويبدأ بـ 2 أو 3",
+    "INVALID_NATIONAL_ID": "National ID must be 14 digits and start with 2 or 3"
+
+  }

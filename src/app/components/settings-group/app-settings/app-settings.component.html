@@ -1,0 +1,96 @@
+<app-settings></app-settings>
+<div class="container" dir="rtl">
+  <!-- بطاقة متغيرات الشاشة -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <h1>متغيرات الشاشة</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج إدخال البيانات -->
+        <form (ngSubmit)="onSubmit()" #settingsForm="ngForm" class="form-control border-0">
+          <h4>إضافة تعديلات</h4>
+          <div class="mb-3">
+            <label for="systemName" class="form-label">اسم المنظومة:</label>
+            <input type="text" class="form-control" id="systemName" [(ngModel)]="systemName" name="systemName"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="systemImage" class="form-label">صورة المنظومة:</label>
+            <input type="file" class="form-control" id="systemImage" (change)="onImageChange($event)"
+              accept="image/*" />
+            <div *ngIf="imageUrl" class="mt-2">
+              <img [src]="imageUrl" alt="صورة المنظومة" class="image-preview" style="width: 150px; height: auto;" />
+            </div>
+          </div>
+          <!-- حقلي لون القائمة ولون الخط في نفس السطر -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="listColor" class="form-label">لون القائمة:</label>
+              <input type="color" class="form-control form-control-color" id="listColor" [(ngModel)]="listColor"
+                name="listColor" />
+            </div>
+            <div class="col-md-6">
+              <label for="textColor" class="form-label">لون الخط:</label>
+              <input type="color" class="form-control form-control-color" id="textColor" [(ngModel)]="textColor"
+                name="textColor" />
+            </div>
+          </div>
+          <!-- زر الحفظ -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-success w-25" [disabled]="!settingsForm.form.valid">
+              {{ isEditing ? 'تحديث' : 'حفظ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- جدول لعرض البيانات المدخلة -->
+  <div *ngIf="systemData.length > 0" class="card-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>البيانات المدخلة</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>اسم المنظومة</th>
+              <th>صورة المنظومة</th>
+              <th>لون القائمة</th>
+              <th>لون الخط</th>
+              <th colspan="2">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of systemData; let i = index">
+              <td>{{ data.systemName }}</td>
+              <td class="text-center">
+                <img [src]="data.image" alt="صورة المنظومة" class="image-preview" style="width: 60px; height: 60px;" />
+              </td>
+              <td [style.backgroundColor]="data.listColor"></td>
+              <td [style.backgroundColor]="data.textColor"></td>
+              <td class="text-center">
+                <button class="btn btn-warning btn-sm" (click)="editData(i)">
+                  <i class="fa fa-pencil"></i> تعديل
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteData(i)">
+                  <i class="fa fa-trash"></i> حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- إذا لم توجد بيانات، نعرض رسالة -->
+  <div *ngIf="systemData.length === 0">
+    <p class="text-center">لا توجد بيانات لعرضها.</p>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<!-- sidebar.component.html -->
+<div class="sidebar-container">
+  <!-- Sidebar Opener Button -->
+  <button class="sidebar-opener"
+          (click)="toggleSidebar()"
+          [class.active]="sidebarShow"
+          aria-label="Toggle Settings Menu">
+    <i class="fas fa-cog"></i>
+  </button>
+
+  <!-- Sidebar Main Content -->
+  <div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow">
+    <div class="sidebar-content">
+      <!-- Header -->
+      <div class="sidebar-header">
+        <!-- <h6 class="sidebar-title">إضافة الأدوات</h6> -->
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav">
+        <ul class="sidebar-menu">
+          <!-- Users -->
+          <li class="sidebar-item"
+              [routerLink]="'/users'"
+              routerLinkActive="active"
+              (click)="handleItemClick()"
+              title="المستخدمين">
+            <i class="fas fa-users"></i>
+            <!-- <span class="item-tooltip">المستخدمين</span> -->
+          </li>
+
+          <!-- Groups -->
+          <li class="sidebar-item"
+              [routerLink]="'/groups'"
+              routerLinkActive="active"
+              (click)="handleItemClick()"
+              title="المجموعات">
+            <i class="fas fa-users-cog"></i>
+            <!-- <span class="item-tooltip">المجموعات</span> -->
+          </li>
+
+          <!-- User Groups -->
+          <li class="sidebar-item"
+              [routerLink]="'/group-user'"
+              routerLinkActive="active"
+              (click)="handleItemClick()"
+              title="مجموعة المستخدم">
+            <i class="fas fa-user-friends"></i>
+            <!-- <span class="item-tooltip">مجموعة المستخدم</span> -->
+          </li>
+
+          <!-- Controls -->
+          <li class="sidebar-item"
+              [routerLink]="'/controls'"
+              routerLinkActive="active"
+              (click)="handleItemClick()"
+              title="الضوابط">
+            <i class="fas fa-sliders-h"></i>
+            <!-- <span class="item-tooltip">الضوابط</span> -->
+          </li>
+
+          <!-- Group Controls -->
+          <li class="sidebar-item"
+              [routerLink]="'/group-control'"
+              routerLinkActive="active"
+              (click)="handleItemClick()"
+              title="ضوابط المجموعة">
+            <i class="fas fa-tasks"></i>
+            <!-- <span class="item-tooltip">ضوابط المجموعة</span> -->
+          </li>
+
+          <!-- App Settings -->
+          <li class="sidebar-item"
+              [routerLink]="'/app-settings'"
+              routerLinkActive="active"
+              (click)="handleItemClick()"
+              title="إعدادات التطبيق">
+            <i class="fas fa-cogs"></i>
+            <!-- <span class="item-tooltip">إعدادات التطبيق</span> -->
+          </li>
+
+          <li class="sidebar-item"
+          [routerLink]="'/events'"
+          routerLinkActive="active"
+          (click)="handleItemClick()"
+          title="تفعيل الانشطة">
+        <i class="fa-running"></i>
+        <!-- <span class="item-tooltip">إعدادات التطبيق</span> -->
+      </li>
+        </ul>
+      </nav>
+
+      <!-- Optional: Footer Section -->
+      <!-- <div class="sidebar-footer" *ngIf="showFooter">
+        <button class="close-button"
+                (click)="toggleSidebar()"
+                aria-label="Close Settings Menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Optional: Backdrop for mobile -->
+  <!-- <div class="sidebar-backdrop"
+       *ngIf="sidebarShow && isMobile"
+       (click)="toggleSidebar()">
+  </div>
+</div> -->
+
+<!-- Optional: Loading State -->
+<!-- <div class="sidebar-loading" *ngIf="isLoading">
+  <div class="spinner">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</div> -->
+
+<!-- Optional: Error State -->
+<!-- <div class="sidebar-error" *ngIf="hasError">
+  <div class="error-message">
+    <i class="fas fa-exclamation-circle"></i>
+    <p>{{ errorMessage }}</p>
+    <button (click)="retryConnection()">إعادة المحاولة</button>
+  </div>
+</div> -->

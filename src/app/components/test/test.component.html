@@ -1,0 +1,42 @@
+<div class="container">
+  <!-- Toolbox -->
+  <div class="toolbox" cdkDropList id="toolbox" [cdkDropListConnectedTo]="['dropzone']">
+    <h3>Toolbox</h3>
+    <div *ngFor="let item of toolboxItems" cdkDrag class="drag-item">
+      {{ item.label }}
+    </div>
+  </div>
+
+  <!-- Dropzone -->
+  <div class="dropzone" cdkDropList id="dropzone" [cdkDropListData]="droppedItems" (cdkDropListDropped)="drop($event)">
+    <h3>Dropzone</h3>
+    <div *ngFor="let item of droppedItems; let i = index" class="dropped-item">
+      <ng-container [ngSwitch]="item.type">
+        <!-- Text Input -->
+        <mat-form-field *ngSwitchCase="'text'" appearance="outline" class="full-width">
+          <mat-label>Text Input</mat-label>
+          <input matInput placeholder="Enter text">
+        </mat-form-field>
+        <!-- Radio Button -->
+        <mat-radio-group *ngSwitchCase="'radio'" class="radio-group">
+          <mat-radio-button value="option1">Option 1</mat-radio-button>
+          <mat-radio-button value="option2">Option 2</mat-radio-button>
+        </mat-radio-group>
+
+        <!-- Dropdown -->
+        <mat-form-field *ngSwitchCase="'dropdown'" appearance="outline" class="full-width">
+          <mat-label>Select Option</mat-label>
+          <mat-select>
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- Remove Button -->
+      <button mat-icon-button color="warn" (click)="removeItem(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

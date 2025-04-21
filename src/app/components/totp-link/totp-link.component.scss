@@ -1,0 +1,66 @@
+.container {
+ max-width: 800px;
+ margin: 20px auto;
+ background: #fafafa;
+ border: 1px solid #ddd;
+ border-radius: 6px;
+ padding: 20px;
+ font-family: sans-serif;
+ }
+ h1 {
+ margin-bottom: 20px;
+ font-size: 22px;
+ text-align: center;
+ }
+ .buttons {
+ text-align: center;
+ margin-bottom: 20px;
+ }
+ button {
+ background-color: #1976d2;
+ color: #fff;
+ border: none;
+ outline: none;
+ padding: 10px 20px;
+ margin: 0 10px;
+ border-radius: 4px;
+ font-size: 14px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #125ea8;
+ }
+ .qr-section {
+ text-align: center;
+ margin-top: 20px;
+ }
+ .qr-section img {
+ border: 1px solid #ccc;
+ border-radius: 4px;
+ }
+ .qr-details {
+ margin-top: 10px;
+ background: #fff;
+ border: 1px solid #eee;
+ display: inline-block;
+ padding: 10px 15px;
+ text-align: left;
+ font-size: 14px;
+ }
+ 
+ 
+ /* تجاوب مع الشاشات الصغيرة (أقل من 600px) */
+ @media (max-width: 600px) {
+   .container {
+     margin: 10px;
+     padding: 10px;
+   }
+   button {
+     margin-bottom: 10px;
+     width: 100%;
+     font-size: 16px;
+   }
+   .qr-details {
+     display: block; /* لكي تكون بعرض كامل لو أردت */
+   }
+ }

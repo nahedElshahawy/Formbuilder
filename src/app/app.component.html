@@ -1,0 +1,22 @@
+<!-- عرض الـ Navbar والـ Sidebar والـ Footer فقط إذا لم نكن في صفحة تسجيل الدخول -->
+<!-- عرض الـ Navbar والـ Sidebar إذا لم نكن في المسارات المحددة -->
+<div *ngIf="!hideElements">
+
+    <app-navbar></app-navbar>
+
+
+  </div>
+
+
+
+  <div class="app-container"  >
+
+
+    <!-- بقية محتوى التطبيق -->
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- عرض الـ Footer إذا لم نكن في المسارات المحددة -->
+  <div *ngIf="!hideElements">
+    <app-footer></app-footer>
+  </div>

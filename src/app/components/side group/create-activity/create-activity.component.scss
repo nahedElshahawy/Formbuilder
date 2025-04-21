@@ -1,0 +1,49 @@
+.large-square {
+  margin-top: 40px;
+  padding-top: 20px;
+  width: 700px; 
+  height: 150px; 
+  background-color: hsl(120, 27%, 96%); }
+
+.container {
+  direction: rtl; 
+
+}
+
+
+.my-scrollable-element {
+  width: auto; 
+  min-height: 600px; 
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  }
+
+.form-group label {
+  text-align: right; /* محاذاة النص إلى اليمين */
+}
+
+.form-control {
+  text-align: right; /* محاذاة النص داخل الحقول إلى اليمين */
+}
+
+button[type="submit"] {
+  margin-top: 5px; /* إضافة مسافة أعلى الزر إذا لزم الأمر */
+  width:100%;
+}
+
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn + .btn {
+    margin-left: 0;
+  }
+}
+
+
+

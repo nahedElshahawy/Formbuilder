@@ -1,0 +1,107 @@
+<div class="container-fluid mt-5 form-builder-container">
+  <div class="available-fields">
+    <h3>Available Fields</h3>
+    <div *ngFor="let field of availableFields"
+     cdkDrag
+    (cdkDragStarted)="onDragStart($event, field)"
+    (cdkDragReleased)="onDragEnd($event)">
+  <div class="icon-label-container">
+    <mat-icon matPrefix>{{field.icon}}</mat-icon>
+    <mat-label>{{field.label}}</mat-label>
+  </div>
+</div>
+
+
+
+
+
+    <button mat-raised-button type="submit" class="btn btn-success form-control bg-success">Submit</button>
+  </div>
+
+  <div class="form-area" cdkDropList (cdkDropListDropped)="onDrop($event)">
+    <form (ngSubmit)="onSubmit()">
+      <div *ngFor="let field of formFields,let i =index"; cdkDrag class="form-field">
+           <!-- حقل البريد الإلكتروني (Email) -->
+
+
+
+    <div *ngIf="field.type === 'email'">
+      <mat-icon matPrefix>{{field.icon}}</mat-icon>
+      <input
+        type="email"
+        [placeholder]="field.placeholder"
+        [(ngModel)]="field.value"
+        name="fieldEmail_{{ i }}"
+      />
+    </div>
+
+    <!-- حقل القائمة المنسدلة (Select) -->
+    <mat-form-field *ngIf="field.type === 'select'">
+      <mat-icon matPrefix>{{field.icon}}</mat-icon>
+      <select
+        matNativeControl
+        [(ngModel)]="field.value"
+        name="fieldSelect_{{ i }}"
+      >
+        <option
+          *ngFor="let option of field.options"
+          [value]="option"
+        >
+          {{ option }}
+        </option>
+      </select>
+    </mat-form-field>
+
+    <!-- حقل التاريخ (Date) -->
+    <mat-form-field *ngIf="field.type === 'date'">
+      <mat-icon matPrefix>{{field.icon}}</mat-icon>
+      <input
+        matInput
+        type="date"
+        [(ngModel)]="field.value"
+        name="fieldDate_{{ i }}"
+      />
+    </mat-form-field>
+
+    <!-- حقل الرقم (Number) -->
+    <mat-form-field *ngIf="field.type === 'number'">
+      <mat-icon matPrefix>{{field.icon}}</mat-icon>
+      <input
+        matInput
+        type="number"
+        placeholder="field.placeholder"
+        [(ngModel)]="field.value"
+        name="fieldNumber_{{ i }}"
+      />
+    </mat-form-field>
+
+    <!-- حقل Radio -->
+    <!-- يُفضَّل وضعه خارج mat-form-field -->
+    <div *ngIf="field.type === 'radio'">
+      <mat-icon matPrefix>{{field.icon}}</mat-icon>
+      <mat-radio-group [(ngModel)]="field.value" name="fieldRadio_{{ i }}">
+        <mat-radio-button
+          *ngFor="let option of field.options"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- حقل Checkbox -->
+    <!-- أيضًا خارج mat-form-field -->
+    <div *ngIf="field.type === 'checkbox'">
+      <mat-checkbox
+        [(ngModel)]="field.value"
+        name="fieldCheck_{{ i }}"
+      >
+        {{ field.label }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <!-- زر إرسال النموذج -->
+  <button mat-raised-button type="submit">Submit</button>
+</form>
+--------------------------

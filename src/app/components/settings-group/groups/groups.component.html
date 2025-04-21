@@ -1,0 +1,62 @@
+<app-settings></app-settings>
+<div class="container" dir="rtl">
+  <!-- بطاقة المجموعات -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <h1>شاشة المجموعات</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج إضافة مجموعة -->
+        <h5>إضافة مجموعة</h5>
+        <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="form-control border-0">
+          <div class="mb-3">
+            <label for="UserG" class="form-label">اسم المجموعة:</label>
+            <input type="text" id="UserG" formControlName="groupuser" class="form-control"
+              placeholder="أدخل اسم المجموعة" />
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success w-25" [disabled]="groupForm.invalid">
+              {{ editIndex !== null ? 'تحديث' : 'حفظ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- بطاقة عرض المجموعات المحفوظة -->
+  <div *ngIf="groups.length > 0" class="card-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>المجموعات المحفوظة</h5>
+      </div>
+      <div class="card-body">
+        <!-- جدول لعرض المجموعات -->
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>اسم المجموعة</th>
+              <th colspan="2">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of groups; let i = index">
+              <td>{{ group.name }}</td>
+              <td class="text-center">
+                <button class="btn btn-warning btn-sm" (click)="editGroup(i)">
+                  <i class="fa fa-pencil"></i> تعديل
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteGroup(i)">
+                  <i class="fa fa-trash"></i> حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

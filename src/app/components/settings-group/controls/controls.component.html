@@ -1,0 +1,71 @@
+<app-settings></app-settings>
+
+<div class="container" dir="rtl">
+  <!-- بطاقة شاشة التحكم -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <h1>شاشة التحكم</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج الإدخال -->
+        <h4>إضافة تحكم</h4>
+        <form (ngSubmit)="onSubmit()" #controlForm="ngForm" class="form-control border-0">
+          <div class="mb-3">
+            <label for="controlName" class="form-label">اسم التحكم</label>
+            <input type="text" id="controlName" class="form-control" [(ngModel)]="control.name" name="name" required />
+          </div>
+          <div class="mb-3">
+            <label for="controlCode" class="form-label">كود التحكم</label>
+            <input type="text" id="controlCode" class="form-control" [(ngModel)]="control.code" name="code" required />
+          </div>
+          <!-- زر الحفظ -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary w-25" [disabled]="!controlForm.form.valid">
+              {{ isEditing ? 'تحديث' : 'حفظ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- بطاقة عرض الجداول -->
+  <div *ngIf="controls.length > 0" class="card-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>التحكمات المحفوظة</h5>
+      </div>
+      <div class="card-body">
+        <!-- عرض الجدول -->
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>اسم التحكم</th>
+              <th>كود التحكم</th>
+              <th>رقم التحكم</th>
+              <th colspan="2">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of controls; let i = index">
+              <td>{{ item.name }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.id }}</td>
+              <td class="text-center">
+                <button class="btn btn-warning btn-sm" (click)="editControl(i)">
+                  <i class="fa fa-pencil"></i> تعديل
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteControl(i)">
+                  <i class="fa fa-trash"></i> حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

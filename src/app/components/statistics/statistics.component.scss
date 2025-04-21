@@ -1,0 +1,23 @@
+textarea {
+    min-width: 500px; /* لجعل المربع يستغل العرض الكامل */
+    padding: 10px;
+    margin:100px;
+    font-size: 16px;
+    border: 2px bolid solid #ccc;
+    border-radius: 4px;
+    align-items: center;
+    color:azure
+  }
+  
+  textarea:focus {
+    border-color: #4CAF50; /* تغيير لون الحدود عند التركيز */
+    outline: none;
+  }
+
+textarea
+{background-color: black;
+   align-items: center;
+   justify-content: center;
+    margin-top: 50px;
+  };
+  

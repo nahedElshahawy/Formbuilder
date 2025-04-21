@@ -1,0 +1,67 @@
+<app-settings></app-settings>
+
+<div class="container" dir="rtl">
+  <!-- بطاقة إضافة التحكم إلى المجموعة -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <h1>إضافة تحكم إلى مجموعة</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج الإدخال -->
+        <form (ngSubmit)="save()" #controlForm="ngForm" class="form-control border-0">
+          <div class="mb-3">
+            <label for="controlName" class="form-label">اسم التحكم</label>
+            <select class="form-select" id="controlName" [(ngModel)]="controlName" name="controlName" required>
+              <option value="">اختر اسم التحكم</option>
+              <option *ngFor="let control of controls" [value]="control">{{ control }}</option>
+            </select>
+          </div>
+          <!-- زر الحفظ -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary w-25" [disabled]="!controlForm.form.valid">
+              {{ isEditing ? 'تحديث' : 'حفظ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- بطاقة عرض التحكمات في المجموعة -->
+  <div *ngIf="controlList.length > 0" class="card-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>التحكمات في المجموعة</h5>
+      </div>
+      <div class="card-body">
+        <!-- جدول عرض التحكمات -->
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>اسم المجموعة</th>
+              <th>اسم التحكم</th>
+              <th colspan="2">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of controlList; let i = index">
+              <td>{{ item.groupName }}</td>
+              <td>{{ item.controlName }}</td>
+              <td class="text-center">
+                <button class="btn btn-warning btn-sm" (click)="edit(i)">
+                  <i class="fa fa-pencil"></i> تعديل
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="delete(i)">
+                  <i class="fa fa-trash"></i> حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

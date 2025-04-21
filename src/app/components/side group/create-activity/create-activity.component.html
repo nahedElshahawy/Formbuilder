@@ -1,0 +1,156 @@
+<!-- create-activity.component.html -->
+<app-sidebar></app-sidebar>
+
+<div class="container mt-5   my-scrollable-element  " dir="rtl">
+  <form [formGroup]="activityForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- اسم النشاط -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="activityName">اسم النشاط</label>
+          <input type="text" class="form-control" id="activityName" formControlName="activityName" required />
+        </div>
+      </div>
+
+      <!-- اختر النشاط الرئيسي -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="mainActivity">اختر النشاط الرئيسي</label>
+          <select class="form-control" id="mainActivity" formControlName="mainActivity" required>
+            <option value="" disabled>اختر النشاط</option>
+            <option *ngFor="let activity of mainActivities" [value]="activity">{{ activity }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- المحافظة -->
+      <div class="col-md-6">
+        <div class="form-group position-relative">
+          <label for="governorate">المحافظة</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+            </div>
+            <select
+              class="form-control"
+              id="governorate"
+              formControlName="governorate"
+              (change)="onGovernorateChange($event)"
+            >
+              <option value="">اختر المحافظة</option>
+              <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.governorate_name_ar }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- المدينة -->
+      <div class="col-md-6">
+        <div class="form-group position-relative">
+          <label for="city">المدينة</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-city"></i></span>
+            </div>
+            <select
+            class="form-control"
+            id="city"
+            formControlName="city"
+            (change)="onCityChange($event)"
+          >
+              <option value="">اختر المدينة</option>
+              <option *ngFor="let city of cities" [value]="city.id">{{ city.city_name_ar }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- تواريخ البدء والانتهاء -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="startDate">تاريخ بدء النشاط</label>
+          <input type="date" class="form-control" id="startDate" formControlName="startDate" required />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="endDate">تاريخ انتهاء النشاط</label>
+          <input type="date" class="form-control" id="endDate" formControlName="endDate" required />
+        </div>
+      </div>
+    </div>
+
+    <!-- رمز النشاط -->
+     <!-- رمز النشاط -->
+     <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="activityCodeList">رمز النشاط</label>
+          <input type="file" class="form-control" id="activityCodeList" (change)="onImageSelect($event)"
+            accept="image/*" />
+        </div>
+      
+      </div>
+      <!-- لون النشاط -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="activityListColor">لون النشاط</label>
+          <input
+            type="color"
+            class="form-control"
+            id="activityListColor"
+            formControlName="activityListColor"
+            (change)="onColorChange($event)"
+          />
+        </div>
+      </div>
+    </div>
+
+
+  
+<div class="row mt-3">
+  <div class="col-6">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="assignAllUsers"
+        style="background-color: blueviolet ; margin-left: 200px;"
+        formControlName="assignAllUsers"
+        (change)="onAssignAllUsersChange($event)"
+      />
+      <label class="form-check-label" for="assignAllUsers">
+        تسكين جميع المستخدمين
+      </label>
+    </div>
+  </div>
+
+  <div class="col-6">
+ 
+      <label for="users">اختر المستخدمين</label>
+      <select 
+        class="form-control" 
+        id="users" 
+        formControlName="users" 
+        multiple            
+        size="6"           
+        
+      >
+        <option value="" disabled>اختر المستخدم</option>
+        <option *ngFor="let user of users" [value]="user">
+          {{ user.name }}
+        </option>
+      </select>
+    </div>
+
+    </div>
+   
+    <!-- زر الإرسال -->
+    <button type="submit" class="btn btn-primary" [disabled]="activityForm.invalid">   إرسال   </button>
+ 
+  </form>
+</div>

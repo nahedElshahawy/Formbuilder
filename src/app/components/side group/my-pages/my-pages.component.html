@@ -1,0 +1,36 @@
+<app-sidebar></app-sidebar>
+
+<div class="page-container  row mt-3 pt-2">
+
+  <div class="col-4" style="background-color: #000; min-height:600px; scroll:auto; padding: 10px; text-align: center;">
+
+    <ng-container *ngFor="let formItem of savedForms; let i = index">
+
+      <br>
+      {{i+1}}-{{ formItem.fileName || ('Form ' + (i + 1)) }}
+
+      <div class="mr-5">
+
+        <button class="btn btn-outline-primary" (click)="downloadForm(i)">Download</button>
+        
+        <button class="btn btn-outline-secondary" (click)="viewForm(i)">View</button>
+        
+        <!-- <button class="btn btn-outline-warning" (click)="editForm(i)">Edit</button> -->
+        
+        <button class="btn btn-outline-danger" (click)="deleteForm(i)">Delete</button>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+  <div class="col-8" style="text-align:center; align-items: center; padding: 10px; border: 5px solid #3915d6;">
+
+    <h3>My Saved Forms</h3>
+
+    <!-- No saved forms found in localStorage. -->
+
+  </div>
+
+</div>

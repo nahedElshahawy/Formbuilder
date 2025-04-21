@@ -1,0 +1,69 @@
+<app-settings></app-settings>
+
+<div class="container" dir="rtl">
+  <!-- بطاقة المستخدمين في المجموعات -->
+  <div class="card-container mb-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <h1>إضافة مستخدم إلى المجموعة</h1>
+      </div>
+      <div class="card-body">
+        <!-- نموذج إضافة/تعديل مستخدم إلى مجموعة -->
+        <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="form-control border-0">
+          <div class="mb-3">
+            <label for="UserG" class="form-label">اختر المستخدم:</label>
+            <select id="UserG" formControlName="groupuser" class="form-control">
+              <option value="">اختر المستخدم</option>
+              <option value="مستخدم 1">مستخدم 1</option>
+              <option value="مستخدم 2">مستخدم 2</option>
+              <option value="مستخدم 3">مستخدم 3</option>
+            </select>
+          </div>
+          <!-- زر الحفظ/التحديث -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-success w-25" [disabled]="groupForm.invalid">
+              {{ isEditing ? 'تحديث' : 'حفظ' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- بطاقة عرض المجموعات المحفوظة -->
+  <div *ngIf="groups.length > 0" class="card-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h5>المستخدمون في المجموعات</h5>
+      </div>
+      <div class="card-body">
+        <!-- جدول لعرض المستخدمين في المجموعات -->
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>اسم المجموعة</th>
+              <th>اسم المستخدم</th>
+              <th colspan="2">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of groups; let i = index">
+              <td>{{ group.name }}</td>
+              <td>{{ group.user }}</td>
+              <td class="text-center">
+                <button class="btn btn-warning btn-sm" (click)="editGroup(i)">
+                  <i class="fa fa-pencil"></i> تعديل
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteGroup(i)">
+                  <i class="fa fa-trash"></i> حذف
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

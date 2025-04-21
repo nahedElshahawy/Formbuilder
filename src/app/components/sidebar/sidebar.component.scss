@@ -1,0 +1,167 @@
+/* ------------------------ */
+/* زر الريشة */
+/* ------------------------ */
+/* Sidebar opener styles */
+.sidebar-opener {
+  cursor: pointer;
+  background-color: #f0a500;
+  border: 2px solid #333;
+  border-radius: 8px;
+  width: 40px; /* حجم الزر */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #333;
+  position: fixed;
+  top: 50%; /* Center vertically */
+  right: 16px; /* المسافة بين الزر والحافة اليمنى */
+  transform: translateY(-50%);
+  // z-index: 1300;
+  padding: 8px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%; /* حواف دائرية للزر */
+}
+/* ------------------------ */
+/* الشريط الجانبي */
+/* ------------------------ */
+.sidebar-slider {
+  position: fixed;
+  /* تعديل الموضع العمودي للشريط */
+  top: 50%; /* تمركز عمودي */
+  right: 0;
+  transform: translateY(-50%) translateX(100%); /* مخفي خارج الشاشة إلى اليمين */
+  transition: transform 0.3s ease-in-out;
+  width: 50px; /* عرض الشريط */
+  background-color: #333;
+  z-index: 999;
+  border-radius: 40px; /* حواف مستديرة للشريط */
+  overflow: hidden;
+
+  /* عند فتح الشريط */
+  &.sidebar-slide-in {
+    transform: translateY(-50%) translateX(calc(-100% - 3px));
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    align-items: center;
+    height: auto;
+    /* إزالة height: 100%; لجعل ارتفاع الشريط يتناسب مع المحتوى */
+    padding: 3px;
+
+    h6 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 10px; /* تقليل المسافة أسفل العنوان */
+      font-weight: bold; /* إضافة هذه الخاصية لجعل العنوان بالخط العريض */
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      li.sidebar-item {
+        margin: 1px 0; /* تقليل المسافة بين الأيقونات */
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0;
+        box-sizing: border-box;
+
+        i {
+          color: #fff;
+          font-size: 24px;
+          width: 24px;
+          height: 24px;
+          display: block;
+          text-align: center;
+          line-height: 24px;
+        }
+
+        &:hover i {
+          color: #f0a500;
+          
+          }
+      }
+    }
+  }
+}
+
+/* ------------------------ */
+/* استعلامات الوسائط للتجاوب */
+/* ------------------------ */
+
+/* للشاشات الصغيرة مثل الهواتف المحمولة */
+@media (max-width: 767px) {
+  /* تصغير حجم الزر */
+  .sidebar-opener {
+    width: 40px;
+    height: 40px;
+
+    i {
+      font-size: 20px;
+    }
+  }
+
+  /* تعديل الشريط الجانبي */
+  .sidebar-slider {
+    width: 60px;
+    border-radius: 30px;
+  }
+
+  /* تصغير حجم الأيقونات داخل الشريط */
+  .sidebar-slider .sidebar-content ul li.sidebar-item {
+    width: 40px;
+    height: 40px;
+
+    i {
+      font-size: 28px;
+      font-weight: bold;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+
+
+
+  /* Tooltip for sidebar items */
+.sidebar-item:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  animation: slideIn 0.3s forwards;
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+}

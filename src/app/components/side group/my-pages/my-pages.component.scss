@@ -1,0 +1,68 @@
+
+.page-container {
+display: flex;
+flex-direction: row; 
+background-color: none;
+min-height: 1000px;
+padding: 10px;
+}
+
+
+.main-content {
+flex: 1;
+margin-right: 250px; 
+padding: 20px;
+}
+
+/* A title for the main content */
+.page-title {
+margin-bottom: 20px;
+}
+
+
+.sidebar {
+width: 210px;
+height: 100vh;
+position: fixed;
+right: 0; 
+top: 0;
+padding: 20px;
+border-left: 2px solid #ccc;
+direction: rtl;
+overflow-y: auto; 
+}
+
+/* Remove list default spacing */
+.sidebar ul {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+
+.form-sidebar-item {
+margin-bottom: 8px;
+
+}
+
+/* The form name in the sidebar */
+.form-name {
+font-weight: bold;
+margin-right: 10px;
+}
+
+.form-date {
+color: #555;
+font-size: 13px;
+}
+
+
+.sidebar-btn {
+margin: 4px 0;
+width: 100%; 
+}
+
+/* Each list item has some spacing between them */
+.sidebar li {
+margin-bottom: 20px;
+}

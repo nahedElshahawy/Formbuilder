@@ -1,0 +1,74 @@
+<!-- navbar.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark " dir="rtl">
+  <div class="container-fluid">
+    <!-- Logo and Brand -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img src="../../assets/ncw.jpg" alt="NCW Logo" class="logo-img">
+      <span class="brand-text">NCW</span>
+    </a>
+
+    <!-- Hamburger Menu Button -->
+    <button class="navbar-toggler" type="button"
+            (click)="isMenuOpen = !isMenuOpen"
+            [attr.aria-expanded]="isMenuOpen">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation Items -->
+    <div class="collapse navbar-collapse" [class.show]="isMenuOpen">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">
+            <i class="fas fa-home"></i> الصفحة الرئيسية
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/activities" routerLinkActive="active">
+            <i class="fas fa-tasks"></i> بيانات الأنشطة
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/statistics" routerLinkActive="active">
+            <i class="fas fa-chart-bar"></i> الإحصائيات
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/calendar" routerLinkActive="active">
+            <i class="fas fa-calendar"></i> التقويم
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/settings" routerLinkActive="active">
+            <i class="fas fa-cog"></i> الإعدادات
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/card" routerLinkActive="active">
+            <i class="fas fa-id-card"></i> البطاقة
+          </a>
+        </li>
+      </ul>
+
+      <!-- User Controls -->
+      <div class="user-controls">
+        <button (click)="toggleTheme()" class="theme-btn">
+          <mat-icon>{{ themeService.isDarkTheme() ? 'wb_sunny' : 'nightlight_round' }}</mat-icon>
+        </button>
+
+        <div class="user-menu">
+          <ng-container *ngIf="userService.isLoggedIn(); else loginLink">
+            <span class="username">مرحبًا، {{ userService.getCurrentUser()?.username }}</span>
+            <button class="logout-btn" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+            </button>
+          </ng-container>
+          <ng-template #loginLink>
+            <a routerLink="/login" class="login-link">
+              <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </a>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

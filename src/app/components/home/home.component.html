@@ -1,0 +1,22 @@
+
+
+<app-sidebar></app-sidebar>
+
+
+
+<!-- قسم الملاحظات -->
+<div class="card mt-5 p-5 container-fluid"  style="width:500px">
+  <h4>ملاحظات </h4>
+  <textarea class="form-control mb-3" [(ngModel)]="newNoteContent" rows="3"
+            placeholder="اكتب ملاحظتك هنا...">
+  </textarea>
+  <button class="btn btn-primary" (click)="addNote()">إضافة الملاحظة</button>
+
+  <ul class="list-group mt-3">
+    <li class="list-group-item d-flex justify-content-between align-items-center"
+        *ngFor="let note of notes; let i = index">
+      {{ note }}
+      <button class="btn btn-sm btn-danger" (click)="deleteNote(i)">حذف</button>
+    </li>
+  </ul>
+</div>
